@@ -28,14 +28,22 @@ header h2 {
 }
 img {
   max-width: 35%;
-  border-radius: 9px;
+  border-radius: 8px;
+}
+iframe {
+  border: none;
+}
+.loading {
+  margin: 2em;
 }
 p span {
   color: var(--secondary);
+  font-weight: 500;
 }
 footer {
   margin-top: 2em;
   color: var(--secondary);
+  font-weight: 500;
 }
 @media (max-width: 768px) {
   .main {
@@ -52,6 +60,7 @@ footer {
   background-color: var(--primary);
   border-radius: 4px;
   margin: 1.25em;
+  font-weight: bold;
 }
 .react-date-picker,
 .react-date-picker *,

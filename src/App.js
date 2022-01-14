@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 
 function App() {
   const [value, onChange] = useState(new Date());
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    setLoading(true);
+    fetchData(value);
+  }, [value]);
+
+  const fetchData = (value) => {
+    const time = value.toISOString().substr(0, 10);
+    fetch(
+      `https://api.nasa.gov/planetary/apod?date=${time}&api_key=FRWjok2uvAkO7TkgtZF1JfoeCdKIccFKiuxuZhtm`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(true));
+  };
 
   return (
     <>
@@ -10,30 +30,27 @@ function App() {
         <h2>Astronomy Picture of Day</h2>
       </header>
 
-      <div className="main">
-        <DatePicker onChange={onChange} value={value} />
-        <br />
-        <img
-          src="https://apod.nasa.gov/apod/image/2201/NGC1566LRGBHa-Hanson-SelbyFinal1024.jpg"
-          alt="NGC 1566: The Spanish Dancer Spiral Galaxy"
-        />
-        <h2>NGC 1566: The Spanish Dancer Spiral Galaxy</h2>
-        <h3>Mark Hanson and Mike Selby</h3>
-        <p>
-          <span>Explanation: </span>An island universe of billions of stars, NGC
-          1566 lies about 60 million light-years away in the southern
-          constellation Dorado. Popularly known as the Spanish Dancer galaxy,
-          it's seen face-on from our Milky Way perspective. A gorgeous grand
-          design spiral, this galaxy's two graceful spiral arms span over
-          100,000 light-years, traced by bright blue star clusters, pinkish
-          starforming regions, and swirling cosmic dust lanes. NGC 1566's
-          flaring center makes the spiral one of the closest and brightest
-          Seyfert galaxies. It likely houses a central supermassive black hole
-          wreaking havoc on surrounding stars, gas, and dust. In this sharp
-          southern galaxy portrait, the spiky stars lie well within the Milky
-          Way.
-        </p>
-      </div>
+      {isLoading ? (
+        <h2 className="loading">Loading...</h2>
+      ) : (
+        <div className="main">
+          <DatePicker onChange={onChange} value={value} />
+          <br />
+          {data.media_type === "video" ? (
+            <iframe src={data.url} title={data.title} />
+          ) : (
+            <a href={data.hdurl} target="_blank" rel="noopener noreferrer">
+              <img src={data.url} alt={data.title} />
+            </a>
+          )}
+          <h2>{data.title}</h2>
+          <h3>{data.copyright}</h3>
+          <p>
+            <span>Explanation: </span>
+            {data.explanation}
+          </p>
+        </div>
+      )}
 
       <footer>
         <p>Designed and Developed by Arman Abkar</p>
