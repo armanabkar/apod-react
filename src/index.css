@@ -27,30 +27,39 @@ header h2 {
   margin: 0 auto;
 }
 img {
-  max-width: 35%;
+  max-width: 50%;
   border-radius: 8px;
 }
 iframe {
   border: none;
 }
 .loading {
-  margin: 2em;
+  margin: 2em 1.25em;
 }
 p span {
   color: var(--secondary);
   font-weight: 500;
 }
 footer {
-  margin-top: 2em;
   color: var(--secondary);
   font-weight: 500;
 }
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+hr {
+  margin-top: 2em;
+}
 @media (max-width: 768px) {
   .main {
-    margin: 0 1em;
+    margin: 0 1.25em;
   }
   img {
     max-width: 70%;
+  }
+  footer {
+    margin: 0 1.25em;
   }
 }
 .react-date-picker {
@@ -197,7 +206,8 @@ footer {
   background-color: #e6e6e6;
 }
 .react-calendar__navigation button[disabled] {
-  background-color: #f0f0f0;
+  background-color: var(--secondary);
+  opacity: 0.5;
 }
 .react-calendar__month-view__weekdays {
   text-align: center;
@@ -234,7 +244,8 @@ footer {
   background: none;
 }
 .react-calendar__tile:disabled {
-  background-color: #f0f0f0;
+  background-color: var(--secondary);
+  opacity: 0.5;
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {

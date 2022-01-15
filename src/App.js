@@ -19,7 +19,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        setLoading(false);
+        data.code !== (400 || 404) && setLoading(false);
       })
       .catch(() => setLoading(true));
   };
@@ -31,10 +31,30 @@ function App() {
       </header>
 
       {isLoading ? (
-        <h2 className="loading">Loading...</h2>
+        value > new Date() ? (
+          <>
+            <DatePicker
+              onChange={onChange}
+              value={value}
+              clearIcon={null}
+              maxDate={new Date()}
+            />
+            <h2 className="loading">
+              Unfortunately there is no data for the selected date. Please
+              choose another one.
+            </h2>
+          </>
+        ) : (
+          <h2 className="loading">Loading...</h2>
+        )
       ) : (
         <div className="main">
-          <DatePicker onChange={onChange} value={value} />
+          <DatePicker
+            onChange={onChange}
+            value={value}
+            clearIcon={null}
+            maxDate={new Date()}
+          />
           <br />
           {data.media_type === "video" ? (
             <iframe src={data.url} title={data.title} />
@@ -43,16 +63,29 @@ function App() {
               <img src={data.url} alt={data.title} />
             </a>
           )}
-          <h2>{data.title}</h2>
+          <h1>{data.title}</h1>
           <h3>{data.copyright}</h3>
           <p>
             <span>Explanation: </span>
             {data.explanation}
           </p>
+          <hr />
         </div>
       )}
 
       <footer>
+        <p>
+          This project is powered by NASA Astronomy Picture of the Day. You can
+          get the source code from{" "}
+          <a
+            href="https://github.com/armanabkar/apod-react"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here
+          </a>
+          .
+        </p>
         <p>Designed and Developed by Arman Abkar</p>
       </footer>
     </>
