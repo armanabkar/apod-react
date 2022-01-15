@@ -26,6 +26,9 @@ header h2 {
   max-width: 60em;
   margin: 0 auto;
 }
+.intro {
+  color: var(--secondary);
+}
 img {
   max-width: 50%;
   border-radius: 8px;
@@ -68,7 +71,7 @@ hr {
   color: var(--background);
   background-color: var(--primary);
   border-radius: 4px;
-  margin: 1.25em;
+  margin-bottom: 1.25em;
   font-weight: bold;
 }
 .react-date-picker,
