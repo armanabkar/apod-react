@@ -7,21 +7,18 @@ function App() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    setLoading(true);
     fetchData(value);
   }, [value]);
 
   const fetchData = (value) => {
+    setLoading(true);
     const time = value.toISOString().substr(0, 10);
-    fetch(
-      `https://api.nasa.gov/planetary/apod?date=${time}&api_key=FRWjok2uvAkO7TkgtZF1JfoeCdKIccFKiuxuZhtm`
-    )
+    fetch(`https://api.nasa.gov/planetary/apod?date=${time}&api_key=DEMO_KEY`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        data.code !== (400 || 404) && setLoading(false);
-      })
-      .catch(() => setLoading(true));
+        data.title && setLoading(false);
+      });
   };
 
   return (
@@ -78,16 +75,20 @@ function App() {
                 {data.copyright}
               </p>
             )}
-            <p>
+            <p className="explanation">
               <span>Explanation: </span>
               {data.explanation}
             </p>
-            <hr />
+            <br />
+            <p>
+              <span>Tips: </span>1- Click on the image to get the higher
+              resolution. 2- You can change the date from the calendar above.
+            </p>
           </div>
           <footer>
             <p>
               This open-source project is powered by NASA Astronomy Picture of
-              the Day. You can get the source code from{" "}
+              the Day API. You can get the source code from{" "}
               <a
                 href="https://github.com/armanabkar/apod-react"
                 target="_blank"
