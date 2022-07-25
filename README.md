@@ -5,4 +5,11 @@ Discover the cosmos! Each day a different image or photograph of our fascinating
 </div>
 <br>
 
+<div align="center">
+	<img src="./Screenshot.jpg" width="500" />
+</div>
+<br>
+
+- [Live Demo](https://apod-react.surge.sh)
+
 > Astronomy Picture of the Day is a website provided by NASA and Michigan Technological University. According to the website, "Each day a different image or photograph of our universe is featured, along with a brief explanation written by a professional astronomer." [Wikipedia](https://en.wikipedia.org/wiki/Astronomy_Picture_of_the_Day)
